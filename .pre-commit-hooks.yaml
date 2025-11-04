@@ -2,7 +2,7 @@
 -   id: check-python-version-consistency
     name: Check Python version consistency (pyproject.toml)
     description: Checks whether 'requires-python' is consistent with 'classifiers'.
-    entry: check_python_versions.py  # Path to a script in this repository
+    entry: check-python-version-consistency  # Path to a script in this repository
     language: python
     additional_dependencies: [
         "packaging>=20.0",

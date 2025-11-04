@@ -1,6 +1,6 @@
 ---
 ci:
-  skip: [pipenv, mypy]
+  skip: [pipenv, mypy, check-python-version-consistency]
 
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
@@ -54,4 +54,15 @@ repos:
         types_or:
           - python
           - toml  # Pipfile
+        pass_filenames: false
+      - id: check-python-version-consistency
+        name: Check Python version consistency (pyproject.toml)
+        description: Checks whether 'requires-python' is consistent with 'classifiers'.
+        entry: ./check_python_versions.py  # Path to a script in this repository
+        language: python
+        additional_dependencies: [
+          "packaging>=20.0",
+          "tomli>=1.0.0; python_version < '3.11'" # Tomli only for Py < 3.11
+        ]
+        files: ^pyproject\.toml$
         pass_filenames: false
