@@ -76,7 +76,7 @@ You can run this tool as a pre-commit hook to automatically check changes to
 .. code-block:: yaml
 
     repos:
-    -   repo: https://github.com/fizyk/pyproject-validator
+      - repo: https://github.com/fizyk/pyproject-validator
         rev: v0.1.0
         hooks:
         -   id: check-python-version-consistency
