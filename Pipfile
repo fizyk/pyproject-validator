@@ -11,7 +11,7 @@ tomli = {version = "==2.3.0", markers = "python_version < '3.11'"}
 tbump = "==6.11.0"
 towncrier = "==25.8.0"
 mypy = "==1.18.2"
-pytest = "==8.4.1"
+pytest = "==8.4.2"
 pytest-cov = "==7.0.0"
 
 [requires]
