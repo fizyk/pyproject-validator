@@ -1,6 +1,6 @@
 [project]
 name = "pyproject-validator"
-version = "0.0.0"
+version = "0.1.0"
 description = "Process executor (not only) for tests."
 readme = "README.rst"
 keywords = ["pre-commit", "pyproject"]
@@ -36,7 +36,7 @@ requires-python = ">= 3.10"
 [project.urls]
 "Source" = "https://github.com/fizyk/pyproject-validator"
 "Bug Tracker" = "https://github.com/fizyk/pyproject-validator/issues"
-"Changelog" = "https://github.com/fizyk/pyproject-validator/blob/v0.0.0/CHANGES.rst"
+"Changelog" = "https://github.com/fizyk/pyproject-validator/blob/v0.1.0/CHANGES.rst"
 
 [tool.towncrier]
 directory = "newsfragments"
@@ -115,7 +115,7 @@ ignore_missing_imports = "True"
 # github_url = "https://github.com/<user or organization>/<project>/"
 
 [tool.tbump.version]
-current = "0.0.0"
+current = "0.1.0"
 
 # Example of a semver regexp.
 # Make sure this matches current_version before
