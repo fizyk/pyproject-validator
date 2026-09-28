@@ -1,0 +1,1 @@
+Migrate development environment from pipenv to uv, and switch the build backend to uv_build. The check now lives in the ``check_python_versions`` package.

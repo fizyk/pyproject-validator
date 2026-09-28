@@ -1,3 +1,7 @@
+[build-system]
+build-backend = "uv_build"
+requires = [ "uv-build>=0.12,<0.13" ]
+
 [project]
 name = "pyproject-validator"
 version = "0.1.0"
@@ -35,6 +39,22 @@ Changelog = "https://github.com/fizyk/pyproject-validator/blob/v0.1.0/CHANGES.rs
 
 [project.scripts]
 check-python-version-consistency = "check_python_versions:main"
+
+[dependency-groups]
+dev = [
+    "mypy==1.18.2",
+    "pytest==8.4.2",
+    "pytest-cov==7.0.0",
+    "towncrier==25.8.0",
+]
+release = [
+    "tbump==6.11.0",
+]
+
+[tool.uv.build-backend]
+module-name = "check_python_versions"
+module-root = ""
+source-include = [ "CHANGES.rst", "tests/**" ]
 
 [tool.ruff]
 target-version = "py310"
@@ -89,7 +109,7 @@ filterwarnings = "error"
 
 [[tool.tbump.before_commit]]
 name = "Build changelog"
-cmd = "pipenv run towncrier build --version {new_version} --yes"
+cmd = "uv run towncrier build --version {new_version} --yes"
 
 [[tool.tbump.field]]
 name = "extra"
