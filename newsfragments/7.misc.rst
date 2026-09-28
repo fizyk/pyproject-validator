@@ -1,0 +1,1 @@
+Add pyproject-fmt hook to pre-commit configuration.

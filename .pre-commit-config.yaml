@@ -1,6 +1,8 @@
 ---
 ci:
   skip: [pipenv, mypy, check-python-version-consistency]
+  autofix_prs: false
+  autoupdate_schedule: quarterly
 
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
@@ -34,6 +36,11 @@ repos:
     hooks:
       - id: rstcheck
         additional_dependencies: [sphinx, toml]
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: v2.29.4
+    hooks:
+      - id: pyproject-fmt
 
   - repo: local
     hooks:
