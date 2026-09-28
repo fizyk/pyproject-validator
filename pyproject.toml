@@ -3,12 +3,10 @@ name = "pyproject-validator"
 version = "0.1.0"
 description = "Process executor (not only) for tests."
 readme = "README.rst"
-keywords = ["pre-commit", "pyproject"]
+keywords = [ "pre-commit", "pyproject" ]
 license = "MIT"
-license-files = ["LICENSE"]
-authors = [
-    {name = "Grzegorz Śliwiński", email = "fizyk+pypi@fizyk.dev"}
-]
+license-files = [ "LICENSE" ]
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -16,33 +14,121 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
-    "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dependencies = [
-    "packaging>=20.0",
-    "tomli>=1.0.0; python_version < '3.11'"
-]
-requires-python = ">= 3.10"
+dependencies = [ "packaging>=20.0", "tomli>=1.0.0; python_version<'3.11'" ]
 
-[project.scripts]
-"check-python-version-consistency" = "check_python_versions:main"
+[[project.authors]]
+name = "Grzegorz Śliwiński"
+email = "fizyk+pypi@fizyk.dev"
 
 [project.urls]
-"Source" = "https://github.com/fizyk/pyproject-validator"
+Source = "https://github.com/fizyk/pyproject-validator"
 "Bug Tracker" = "https://github.com/fizyk/pyproject-validator/issues"
-"Changelog" = "https://github.com/fizyk/pyproject-validator/blob/v0.1.0/CHANGES.rst"
+Changelog = "https://github.com/fizyk/pyproject-validator/blob/v0.1.0/CHANGES.rst"
+
+[project.scripts]
+check-python-version-consistency = "check_python_versions:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "D", # pydocstyle
+    "E", # pycodestyle
+    "F", # pyflakes
+    "I", # isort
+]
+
+[tool.pyproject-fmt]
+column_width = 120
+indent = 4
+keep_full_version = true
+generate_python_version_classifiers = false
+table_format = "long"
+sub_table_spacing = "\n"
+
+[tool.mypy]
+ignore_missing_imports = "False"
+follow_imports = "silent"
+disallow_subclassing_any = "True"
+disallow_untyped_calls = "True"
+disallow_untyped_defs = "True"
+disallow_incomplete_defs = "True"
+check_untyped_defs = "True"
+disallow_untyped_decorators = "True"
+warn_unused_ignores = "True"
+warn_no_return = "True"
+warn_return_any = "True"
+warn_unreachable = "True"
+allow_untyped_globals = "False"
+allow_redefinition = "False"
+implicit_reexport = "False"
+strict_equality = "True"
+pretty = "True"
+no_implicit_optional = "True"
+show_error_codes = "True"
+
+[[tool.mypy.overrides]]
+module = [ "tomli" ]
+ignore_missing_imports = "True"
+
+[tool.pytest.ini_options]
+xfail_strict = "True"
+filterwarnings = "error"
+
+[tool.tbump]
+
+[[tool.tbump.before_commit]]
+name = "Build changelog"
+cmd = "pipenv run towncrier build --version {new_version} --yes"
+
+[[tool.tbump.field]]
+name = "extra"
+default = ""
+
+[[tool.tbump.file]]
+src = "README.rst"
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+search = 'version = "{current_version}"'
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+search = 'Changelog = "https://github.com/fizyk/pyproject-validator/blob/v{current_version}/CHANGES.rst"'
+
+[tool.tbump.git]
+message_template = "Release {new_version}"
+tag_template = "v{new_version}"
+
+[tool.tbump.version]
+current = "0.1.0"
+
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  (\-
+    (?P<extra>.+)
+  )?
+  '''
 
 [tool.towncrier]
 directory = "newsfragments"
-single_file=true
-filename="CHANGES.rst"
-issue_format="`#{issue} <https://github.com/dbfixtures/mirakuru/issues/{issue}>`_"
+filename = "CHANGES.rst"
+issue_format = "`#{issue} <https://github.com/fizyk/pyproject-validator/issues/{issue}>`_"
+single_file = true
 
 [[tool.towncrier.type]]
 directory = "break"
@@ -68,104 +154,3 @@ showcontent = true
 directory = "misc"
 name = "Miscellaneus"
 showcontent = false
-
-[tool.pytest.ini_options]
-filterwarnings = "error"
-xfail_strict = "True"
-
-[tool.ruff]
-line-length = 120
-target-version = 'py310'
-
-[tool.ruff.lint]
-select = [
-    "E",   # pycodestyle
-    "F",   # pyflakes
-    "I",   # isort
-    "D",   # pydocstyle
-]
-
-[tool.mypy]
-allow_redefinition = "False"
-allow_untyped_globals = "False"
-check_untyped_defs = "True"
-disallow_incomplete_defs = "True"
-disallow_subclassing_any = "True"
-disallow_untyped_calls = "True"
-disallow_untyped_decorators = "True"
-disallow_untyped_defs = "True"
-follow_imports = "silent"
-ignore_missing_imports = "False"
-implicit_reexport = "False"
-no_implicit_optional = "True"
-pretty = "True"
-show_error_codes = "True"
-strict_equality = "True"
-warn_no_return = "True"
-warn_return_any = "True"
-warn_unreachable = "True"
-warn_unused_ignores = "True"
-
-[[tool.mypy.overrides]]
-module = ["tomli"]
-ignore_missing_imports = "True"
-
-[tool.tbump]
-# Uncomment this if your project is hosted on GitHub:
-# github_url = "https://github.com/<user or organization>/<project>/"
-
-[tool.tbump.version]
-current = "0.1.0"
-
-# Example of a semver regexp.
-# Make sure this matches current_version before
-# using tbump
-regex = '''
-  (?P<major>\d+)
-  \.
-  (?P<minor>\d+)
-  \.
-  (?P<patch>\d+)
-  (\-
-    (?P<extra>.+)
-  )?
-  '''
-
-[tool.tbump.git]
-message_template = "Release {new_version}"
-tag_template = "v{new_version}"
-
-[[tool.tbump.field]]
-# the name of the field
-name = "extra"
-# the default value to use, if there is no match
-default = ""
-
-
-# For each file to patch, add a [[file]] config
-# section containing the path of the file, relative to the
-# tbump.toml location.
-[[tool.tbump.file]]
-src = "README.rst"
-
-[[tool.tbump.file]]
-src = "pyproject.toml"
-search = 'version = "{current_version}"'
-
-[[tool.tbump.file]]
-src = "pyproject.toml"
-search = '"Changelog" = "https://github.com/fizyk/pyproject-validator/blob/v{current_version}/CHANGES.rst"'
-
-# You can specify a list of commands to
-# run after the files have been patched
-# and before the git commit is made
-
-[[tool.tbump.before_commit]]
-name = "Build changelog"
-cmd = "pipenv run towncrier build --version {new_version} --yes"
-
-# Or run some commands after the git tag and the branch
-# have been pushed:
-#  [[tool.tbump.after_push]]
-#  name = "publish"
-#  cmd = "./publish.sh"
