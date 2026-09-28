@@ -84,12 +84,11 @@ You can run this tool as a pre-commit hook to automatically check changes to
 
 Development
 -----------
-- Set up development dependencies with ``pipenv`` (used by local hooks here):
+- Set up development dependencies with `uv <https://docs.astral.sh/uv/>`_ (used by local hooks here):
 
   .. code-block:: bash
 
-     pip install pipenv
-     pipenv install --dev
+     uv sync
 
 - Run linters and formatters:
 
@@ -101,7 +100,7 @@ Development
 
   .. code-block:: bash
 
-     pipenv run pytest -q
+     uv run pytest -q
 
 Project metadata
 ----------------

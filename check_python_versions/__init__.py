@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Check that classifiers are in sync with requires-python."""
 
 import sys
