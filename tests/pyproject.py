@@ -4,7 +4,11 @@ from pathlib import Path
 from typing import Iterable
 
 
-def render(requires_python: str | None = None, classifiers: Iterable[str] | None = None) -> str:
+def render(
+    requires_python: str | None = None,
+    classifiers: Iterable[str] | None = None,
+    ruff_target_version: str | None = None,
+) -> str:
     """Render minimal TOML content for a pyproject with optional fields."""
     lines: list[str] = ["[project]"]
 
@@ -18,10 +22,20 @@ def render(requires_python: str | None = None, classifiers: Iterable[str] | None
             lines.append(f'  "{c}",')
         lines.append("]")
 
+    if ruff_target_version:
+        lines.append("")
+        lines.append("[tool.ruff]")
+        lines.append(f'target-version = "{ruff_target_version}"')
+
     return "\n".join(lines) + "\n"
 
 
-def write(tmp_dir: Path, requires_python: str | None = None, classifiers: Iterable[str] | None = None) -> Path:
+def write(
+    tmp_dir: Path,
+    requires_python: str | None = None,
+    classifiers: Iterable[str] | None = None,
+    ruff_target_version: str | None = None,
+) -> Path:
     """Write a `pyproject.toml` into the given temporary directory and return its path.
 
     Usage in tests (to be added next):
@@ -30,7 +44,7 @@ def write(tmp_dir: Path, requires_python: str | None = None, classifiers: Iterab
           "Programming Language :: Python :: 3.11",
       ])
     """
-    content = render(requires_python=requires_python, classifiers=classifiers)
+    content = render(requires_python=requires_python, classifiers=classifiers, ruff_target_version=ruff_target_version)
     path = tmp_dir / "pyproject.toml"
     path.write_text(content, encoding="utf-8")
     return path

@@ -32,9 +32,17 @@ What exactly is checked?
    ``... :: 3 :: Only`` are ignored.
 
 
+- If ``tool.ruff.target-version`` is set, it has to point to the minimal
+  Python version found in ``project.classifiers`` (e.g. ``py312`` for
+  ``3.12``). If it is not set, this check is skipped, as ruff infers it from
+  ``requires-python`` on its own.
+
 - If either ``requires-python`` or the Python version classifiers are missing,
-  the tool prints an informational message and exits successfully (0) so it can
-  be safely used in CI or pre-commit even for repos that don’t publish packages.
+  the tool prints an informational message and skips the ``requires-python``
+  check, so it can be safely used in CI or pre-commit even for repos that don’t
+  publish packages. The ruff ``target-version`` check still runs whenever the
+  Python version classifiers are present, so a missing ``requires-python`` alone
+  does not guarantee a successful exit.
 
 
 Usage
@@ -46,7 +54,7 @@ Run in the repository root (where ``pyproject.toml`` is located):
    python check_python_versions.py
 
 Exit codes:
-- ``0``: Everything is consistent, or required fields are missing (informational skip).
+- ``0``: Everything is consistent, or the checks were skipped because required fields are missing (informational skip).
 - ``1``: Inconsistency detected, or a runtime error occurred (missing dependencies, etc.).
 
 Example output (consistent):
@@ -66,6 +74,18 @@ Example output (inconsistent):
      `requires-python` setting is: ">=3.11"
      ERROR: 3.11 version (which is not in the classifiers) still fits in `requires-python`.
      RECOMMENDATION: Change`requires-python` into: ">= 3.12"
+   ================================================================================
+
+Example output (inconsistent ruff ``target-version``):
+
+.. code-block:: text
+
+   ================================================================================
+   !!! INCONSISTENCY IN RUFF'S TARGET-VERSION IN PYPROJECT.TOML !!!
+     Minimum version in `classifiers`: 3.12
+     `tool.ruff.target-version` setting is: "py311"
+     ERROR: `tool.ruff.target-version` should point to the lowest supported python version.
+     RECOMMENDATION: Change `tool.ruff.target-version` into: "py312"
    ================================================================================
 
 Pre-commit integration
