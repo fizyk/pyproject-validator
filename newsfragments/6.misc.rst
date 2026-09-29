@@ -1,1 +1,0 @@
-Configured dependabot to update pre-commit's hooks

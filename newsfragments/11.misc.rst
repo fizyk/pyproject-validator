@@ -1,1 +1,0 @@
-Migrate CI to fizyk/actions-reuse 5.9 shared workflows, including shared-automerge.

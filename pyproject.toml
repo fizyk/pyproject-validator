@@ -4,7 +4,7 @@ requires = [ "uv-build>=0.12,<0.13" ]
 
 [project]
 name = "pyproject-validator"
-version = "0.1.0"
+version = "0.1.1"
 description = "Process executor (not only) for tests."
 readme = "README.rst"
 keywords = [ "pre-commit", "pyproject" ]
@@ -35,7 +35,7 @@ email = "fizyk+pypi@fizyk.dev"
 [project.urls]
 Source = "https://github.com/fizyk/pyproject-validator"
 "Bug Tracker" = "https://github.com/fizyk/pyproject-validator/issues"
-Changelog = "https://github.com/fizyk/pyproject-validator/blob/v0.1.0/CHANGES.rst"
+Changelog = "https://github.com/fizyk/pyproject-validator/blob/v0.1.1/CHANGES.rst"
 
 [project.scripts]
 check-python-version-consistency = "check_python_versions:main"
@@ -131,7 +131,7 @@ message_template = "Release {new_version}"
 tag_template = "v{new_version}"
 
 [tool.tbump.version]
-current = "0.1.0"
+current = "0.1.1"
 
 regex = '''
   (?P<major>\d+)

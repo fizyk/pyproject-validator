@@ -1,1 +1,0 @@
-Turn off pre-commit's autofix for pull requests and change autoupdate schedule to quarterly
