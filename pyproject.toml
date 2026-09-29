@@ -43,7 +43,7 @@ check-python-version-consistency = "check_python_versions:main"
 [dependency-groups]
 dev = [
     "mypy==1.18.2",
-    "pytest==9.0.3",
+    "pytest==9.1.1",
     "pytest-cov==7.1.0",
     "towncrier==25.8.0",
 ]
