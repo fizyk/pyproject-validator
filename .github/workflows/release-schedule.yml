@@ -1,0 +1,23 @@
+name: Scheduled release
+
+on:
+  schedule:
+    - cron: '13 7 * * 2'
+  workflow_dispatch: {}
+
+concurrency:
+  group: release-schedule
+
+jobs:
+  schedule:
+    permissions:
+      contents: read
+    uses: fizyk/actions-reuse/.github/workflows/shared-release-schedule.yml@432d7575c4cc00724bb43d408cc75e2830c51ae2 # v5.9.0
+    with:
+      dependency-manager: 'uv'
+      newsfragments-required: true
+      minor-fragments: 'feature,depr'
+      major-fragments: 'break'
+    secrets:
+      app_id: ${{ secrets.RELEASE_APP_ID }}
+      private_key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
