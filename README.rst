@@ -51,7 +51,7 @@ Run in the repository root (where ``pyproject.toml`` is located):
 
 .. code-block:: bash
 
-   python check_python_versions.py
+   python -m check_python_versions
 
 Exit codes:
 - ``0``: Everything is consistent, or the checks were skipped because required fields are missing (informational skip).
@@ -70,10 +70,10 @@ Example output (inconsistent):
    ================================================================================
    !!! INCONSISTENCY IN PYTHON VERSIONS IN PYPROJECT.TOML !!!
      Minimum version in `classifiers`: 3.12
-     Oldest versiion still supported in classifiers: 3.11
+     Oldest version still supported in classifiers: 3.11
      `requires-python` setting is: ">=3.11"
      ERROR: 3.11 version (which is not in the classifiers) still fits in `requires-python`.
-     RECOMMENDATION: Change`requires-python` into: ">= 3.12"
+     RECOMMENDATION: Change `requires-python` into: ">= 3.12"
    ================================================================================
 
 Example output (inconsistent ruff ``target-version``):

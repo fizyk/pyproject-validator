@@ -1,0 +1,2 @@
+Split the ``check_python_versions`` module into a package. Checks are now classes sharing
+a common ``Check`` interface that return a ``Result``, and all output is produced by a single reporter.

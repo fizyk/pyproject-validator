@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from pytest import CaptureFixture, MonkeyPatch
 
-from check_python_versions import main
+from check_python_versions.cli import main
 from tests import pyproject
 
 
@@ -147,7 +147,7 @@ def test_main_inconsistency_between_classifiers_and_requires_python(
     assert "Minimum version in `classifiers`" in err
     assert "3.10" in err
     # Previous minor version mentioned (3.9 expected)
-    assert "Oldest versiion still supported in classifiers" in err
+    assert "Oldest version still supported in classifiers" in err
     assert "3.9" in err
     # requires-python echoed back
     assert "`requires-python`" in err

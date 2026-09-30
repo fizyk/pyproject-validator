@@ -3,7 +3,8 @@
 import pytest
 from packaging.version import Version
 
-from check_python_versions import get_min_classifier_version, ruff_target_version
+from check_python_versions.checks.ruff import ruff_target_version
+from check_python_versions.classifiers import get_min_classifier_version
 
 
 @pytest.mark.parametrize(
