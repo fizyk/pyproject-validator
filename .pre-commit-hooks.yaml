@@ -1,7 +1,7 @@
 # .pre-commit-hooks.yaml
 -   id: check-python-version-consistency
     name: Check Python version consistency (pyproject.toml)
-    description: Checks whether 'requires-python' is consistent with 'classifiers'.
+    description: Checks whether 'requires-python' and ruff's 'target-version' are consistent with 'classifiers'.
     entry: check-python-version-consistency  # Path to a script in this repository
     language: python
     additional_dependencies: [

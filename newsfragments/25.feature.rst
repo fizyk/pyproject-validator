@@ -1,0 +1,1 @@
+Validate that ruff's ``tool.ruff.target-version`` points to the lowest Python version declared in classifiers.
