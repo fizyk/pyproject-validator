@@ -1,10 +1,12 @@
-"""Tests for the individual checks, independent of output reporting."""
+"""Tests for the ruff ``target-version`` check."""
 
 from typing import Any
 
 import pytest
+from packaging.version import Version
 
-from check_python_versions.checks import RequiresPythonCheck, RuffTargetVersionCheck, Status
+from check_python_versions.checks import RuffTargetVersionCheck, Status
+from check_python_versions.checks.ruff import ruff_target_version
 
 CLASSIFIERS = [
     "Programming Language :: Python :: 3.10",
@@ -13,22 +15,17 @@ CLASSIFIERS = [
 
 
 @pytest.mark.parametrize(
-    "pyproject, expected_status",
+    "version, expected",
     [
-        ({}, Status.SKIPPED),
-        ({"project": {"classifiers": CLASSIFIERS}}, Status.SKIPPED),
-        ({"project": {"requires-python": ">=3.10"}}, Status.SKIPPED),
-        (
-            {"project": {"requires-python": ">=3.10", "classifiers": ["Programming Language :: Python :: 3"]}},
-            Status.WARNING,
-        ),
-        ({"project": {"requires-python": ">=3.9", "classifiers": CLASSIFIERS}}, Status.FAILED),
-        ({"project": {"requires-python": ">=3.10", "classifiers": CLASSIFIERS}}, Status.PASSED),
+        (Version("3.10"), "py310"),
+        (Version("3.9"), "py39"),
+        (Version("3.9.5"), "py39"),
+        (Version("3.14"), "py314"),
     ],
 )
-def test_requires_python_check(pyproject: dict[str, Any], expected_status: Status) -> None:
-    """RequiresPythonCheck returns the expected status for each configuration."""
-    assert RequiresPythonCheck().run(pyproject).status is expected_status
+def test_ruff_target_version(version: Version, expected: str) -> None:
+    """Test conversion of a python version into ruff's target-version format."""
+    assert ruff_target_version(version) == expected
 
 
 @pytest.mark.parametrize(

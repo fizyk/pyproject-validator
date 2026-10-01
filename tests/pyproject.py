@@ -1,7 +1,7 @@
 """Helpers for testing the `main()` function in check_python_versions."""
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 
 def render(
