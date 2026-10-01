@@ -1,4 +1,4 @@
-"""Tests for the main function of the check-python-versions script."""
+"""Tests for the command line entry point."""
 
 from pathlib import Path
 
