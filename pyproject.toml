@@ -38,7 +38,7 @@ Source = "https://github.com/fizyk/pyproject-validator"
 Changelog = "https://github.com/fizyk/pyproject-validator/blob/v0.1.1/CHANGES.rst"
 
 [project.scripts]
-check-python-version-consistency = "check_python_versions:main"
+check-python-version-consistency = "check_python_versions.cli:main"
 
 [dependency-groups]
 dev = [

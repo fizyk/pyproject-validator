@@ -2,6 +2,6 @@
 
 import sys
 
-from check_python_versions import main
+from check_python_versions.cli import main
 
 sys.exit(main())
