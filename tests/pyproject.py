@@ -8,6 +8,7 @@ def render(
     requires_python: str | None = None,
     classifiers: Iterable[str] | None = None,
     ruff_target_version: str | None = None,
+    mypy_python_version: str | None = None,
 ) -> str:
     """Render minimal TOML content for a pyproject with optional fields."""
     lines: list[str] = ["[project]"]
@@ -27,6 +28,11 @@ def render(
         lines.append("[tool.ruff]")
         lines.append(f'target-version = "{ruff_target_version}"')
 
+    if mypy_python_version:
+        lines.append("")
+        lines.append("[tool.mypy]")
+        lines.append(f'python_version = "{mypy_python_version}"')
+
     return "\n".join(lines) + "\n"
 
 
@@ -35,6 +41,7 @@ def write(
     requires_python: str | None = None,
     classifiers: Iterable[str] | None = None,
     ruff_target_version: str | None = None,
+    mypy_python_version: str | None = None,
 ) -> Path:
     """Write a `pyproject.toml` into the given temporary directory and return its path.
 
@@ -44,7 +51,12 @@ def write(
           "Programming Language :: Python :: 3.11",
       ])
     """
-    content = render(requires_python=requires_python, classifiers=classifiers, ruff_target_version=ruff_target_version)
+    content = render(
+        requires_python=requires_python,
+        classifiers=classifiers,
+        ruff_target_version=ruff_target_version,
+        mypy_python_version=mypy_python_version,
+    )
     path = tmp_dir / "pyproject.toml"
     path.write_text(content, encoding="utf-8")
     return path

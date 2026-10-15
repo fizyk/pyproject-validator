@@ -37,11 +37,17 @@ What exactly is checked?
   ``3.12``). If it is not set, this check is skipped, as ruff infers it from
   ``requires-python`` on its own.
 
+- If ``tool.mypy.python_version`` is set, it has to point to the minimal
+  Python version found in ``project.classifiers`` (e.g. ``"3.12"``). The value
+  has to be a quoted string - an unquoted ``3.10`` is read by TOML as the float
+  ``3.1``, so unquoted values are always reported as an error. If it is not set,
+  this check is skipped.
+
 - If either ``requires-python`` or the Python version classifiers are missing,
   the tool prints an informational message and skips the ``requires-python``
   check, so it can be safely used in CI or pre-commit even for repos that don’t
-  publish packages. The ruff ``target-version`` check still runs whenever the
-  Python version classifiers are present, so a missing ``requires-python`` alone
+  publish packages. The ruff ``target-version`` and mypy ``python_version``
+  checks still run whenever the Python version classifiers are present, so a missing ``requires-python`` alone
   does not guarantee a successful exit.
 
 
@@ -86,6 +92,18 @@ Example output (inconsistent ruff ``target-version``):
      `tool.ruff.target-version` setting is: "py311"
      ERROR: `tool.ruff.target-version` should point to the lowest supported python version.
      RECOMMENDATION: Change `tool.ruff.target-version` into: "py312"
+   ================================================================================
+
+Example output (inconsistent mypy ``python_version``):
+
+.. code-block:: text
+
+   ================================================================================
+   !!! INCONSISTENCY IN MYPY'S PYTHON_VERSION IN PYPROJECT.TOML !!!
+     Minimum version in `classifiers`: 3.12
+     `tool.mypy.python_version` setting is: "3.11"
+     ERROR: `tool.mypy.python_version` should point to the lowest supported python version.
+     RECOMMENDATION: Change `tool.mypy.python_version` into: "3.12"
    ================================================================================
 
 Pre-commit integration

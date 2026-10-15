@@ -149,7 +149,7 @@ regex = '''
 [tool.towncrier]
 directory = "newsfragments"
 filename = "CHANGES.rst"
-issue_format = "`#{issue} <https://github.com/fizyk/pyproject-validator/issues/{issue}>`_"
+issue_format = "`#{issue} <https://github.com/fizyk/pyproject-validator/issues/{issue}>`__"
 single_file = true
 
 [[tool.towncrier.type]]
@@ -173,6 +173,15 @@ name = "Bugfixes"
 showcontent = true
 
 [[tool.towncrier.type]]
+directory = "docs"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
 directory = "misc"
-name = "Miscellaneus"
-showcontent = false
+name = "Miscellaneous"
+showcontent = true
+
+[tool.rstcheck]
+# Single-file changelog repeats section titles (Features, Bugfixes...) in every release.
+ignore_messages = "Duplicate implicit target name"
