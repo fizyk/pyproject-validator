@@ -1,1 +1,0 @@
-Validate that mypy's ``tool.mypy.python_version`` points to the lowest Python version declared in classifiers.

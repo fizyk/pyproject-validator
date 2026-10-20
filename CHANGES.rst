@@ -3,6 +3,15 @@ CHANGELOG
 
 .. towncrier release notes start
 
+pyproject-validator 1.1.0 (2026-10-20)
+======================================
+
+Features
+--------
+
+- Validate that mypy's ``tool.mypy.python_version`` points to the lowest Python version declared in classifiers. (`#26 <https://github.com/fizyk/pyproject-validator/issues/26>`__)
+
+
 pyproject-validator 1.0.0 (2026-10-06)
 ======================================
 

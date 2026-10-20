@@ -115,7 +115,7 @@ You can run this tool as a pre-commit hook to automatically check changes to
 
     repos:
       - repo: https://github.com/fizyk/pyproject-validator
-        rev: v1.0.0
+        rev: v1.1.0
         hooks:
         -   id: check-python-version-consistency
 
@@ -144,7 +144,7 @@ Project metadata
 ----------------
 - Source: https://github.com/fizyk/pyproject-validator
 - Issue tracker: https://github.com/fizyk/pyproject-validator/issues
-- Changelog: https://github.com/fizyk/pyproject-validator/blob/v1.0.0/CHANGES.rst
+- Changelog: https://github.com/fizyk/pyproject-validator/blob/v1.1.0/CHANGES.rst
 - License: MIT (see ``LICENSE``)
 
 License
